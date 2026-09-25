@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qp-cofanpi"
+version = "2026.09.25"
+description = "The CoFAnPi plugin for Qiita"
+requires-python = ">=3.9"
+dependencies = [
+    "click",
+    "qiita-client @ https://github.com/qiita-spots/qiita_client/archive/master.zip",
+]
+
+[tool.setuptools]
+script-files = [
+    "scripts/configure_cofanpi",
+    "scripts/start_cofanpi",
+]

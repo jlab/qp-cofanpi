@@ -1,5 +1,3 @@
-from . import OUT_NAME_withRNA, OUT_NAME_noRNA
-
 import shutil
 import sys
 import os
@@ -8,6 +6,10 @@ from glob import glob
 import pandas as pd
 from qiita_client import ArtifactInfo
 from qiita_client.util import system_call
+
+
+OUT_NAME_withRNA = 'CoFAnPi +RNAseq annotated genome'
+OUT_NAME_noRNA =   'CoFAnPi annotated genome'
 
 
 def cofanpi(qclient, job_id, parameters, out_dir):

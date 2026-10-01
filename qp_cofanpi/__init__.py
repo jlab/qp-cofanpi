@@ -5,7 +5,7 @@ import os
 # Initialize the plugin
 plugin = QiitaPlugin(
     name='qp-cofanpi',
-    version='2026-10-02',
+    version='2026-10-03',
     description='CoFAnPi fungal genome annotation pipeline')
 
 # Defining the command

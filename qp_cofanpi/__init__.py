@@ -1,5 +1,5 @@
 from qiita_client import QiitaPlugin, QiitaCommand
-from .cofanpi import cofanpi
+from .cofanpi import cofanpi, OUT_NAME_withRNA, OUT_NAME_noRNA
 import os
 
 
@@ -26,7 +26,7 @@ opt_params = {
     'CARD database': ['choice:["%s"]' % db_card_version, db_card_version],
     # when command is for processing, defaults cannot be changed
 }
-outputs = {cofanpi.OUT_NAME_withRNA: 'genome'}
+outputs = {OUT_NAME_withRNA: 'genome'}
 
 # defining default parameter set AKA what's going to be shown to the user
 # as options for the command
@@ -63,6 +63,6 @@ cofanpi_cmd = QiitaCommand(
     cofanpi,
     req_params_norna,
     opt_params,
-    {cofanpi.OUT_NAME_noRNA: 'genome'},
+    {OUT_NAME_noRNA: 'genome'},
     dflt_param_set)
 plugin.register_command(cofanpi_cmd)

@@ -8,7 +8,7 @@ OUT_NAME_noRNA =   'CoFAnPi annotated genome'
 # Initialize the plugin
 plugin = QiitaPlugin(
     name='qp-cofanpi',
-    version='2026-10-03',
+    version='2026-10-01',
     description='CoFAnPi fungal genome annotation pipeline')
 
 # Defining the command
@@ -48,7 +48,7 @@ dflt_param_set = {
 }
 
 cofanpi_cmd = QiitaCommand(
-    'CoFAnPi v2026.09.100 (with RNAseq)',
+    'CoFAnPi v2026.10.01 (with RNAseq)',
     "annotating fungal genomes",
     cofanpi,
     req_params,
@@ -60,7 +60,7 @@ plugin.register_command(cofanpi_cmd)
 req_params_norna = req_params.copy()
 del req_params_norna['RNAseq']
 cofanpi_cmd = QiitaCommand(
-    'CoFAnPi v2026.09.100 (no RNAseq)',
+    'CoFAnPi v2026.10.01 (no RNAseq)',
     "annotating fungal genomes",
     cofanpi,
     req_params_norna,

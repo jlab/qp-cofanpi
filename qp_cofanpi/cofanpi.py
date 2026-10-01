@@ -1,3 +1,5 @@
+from . import OUT_NAME_withRNA, OUT_NAME_noRNA
+
 import shutil
 import sys
 import os
@@ -16,14 +18,12 @@ def cofanpi(qclient, job_id, parameters, out_dir):
     L = open('/logs/cofanpi.log', 'a')
     has_rnaseq = 'RNAseq' in parameters.keys()
     cofanpi_modus = 'genome-only'
-    out_name = 'CoFAnPi'
+    out_name = OUT_NAME_noRNA
     num_total_steps = 4
     if has_rnaseq:
         num_total_steps += 1
         cofanpi_modus = 'genome-and-transcriptome'
-        out_name += '+RNAseq annotated genome'
-    else:
-        out_name += ' annotated genome'
+        out_name = OUT_NAME_withRNA
 
     num_step = 1
     qclient.update_job_step(job_id, "Step %i of %i: Obtain organism_name and locus_tag from sample information and write into config.yaml" % (num_step, num_total_steps))

@@ -2,6 +2,9 @@ from qiita_client import QiitaPlugin, QiitaCommand
 from .cofanpi import cofanpi
 import os
 
+OUT_NAME_withRNA = 'CoFAnPi +RNAseq annotated genome'
+OUT_NAME_noRNA =   'CoFAnPi annotated genome'
+
 # Initialize the plugin
 plugin = QiitaPlugin(
     name='qp-cofanpi',
@@ -25,7 +28,7 @@ opt_params = {
     'CARD database': ['choice:["%s"]' % db_card_version, db_card_version],
     # when command is for processing, defaults cannot be changed
 }
-outputs = {'CoFAnPi annotated genome': 'genome'}
+outputs = {OUT_NAME_withRNA: 'genome'}
 
 # defining default parameter set AKA what's going to be shown to the user
 # as options for the command
@@ -45,7 +48,7 @@ dflt_param_set = {
 }
 
 cofanpi_cmd = QiitaCommand(
-    'CoFAnPi v2026.09.01 (with RNAseq)',
+    'CoFAnPi v2026.09.100 (with RNAseq)',
     "annotating fungal genomes",
     cofanpi,
     req_params,
@@ -57,11 +60,11 @@ plugin.register_command(cofanpi_cmd)
 req_params_norna = req_params.copy()
 del req_params_norna['RNAseq']
 cofanpi_cmd = QiitaCommand(
-    'CoFAnPi v2026.09.01 (no RNAseq)',
+    'CoFAnPi v2026.09.100 (no RNAseq)',
     "annotating fungal genomes",
     cofanpi,
     req_params_norna,
     opt_params,
-    outputs,
+    {OUT_NAME_noRNA: 'genome'},
     dflt_param_set)
 plugin.register_command(cofanpi_cmd)

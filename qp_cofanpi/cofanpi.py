@@ -124,7 +124,7 @@ def cofanpi(qclient, job_id, parameters, out_dir):
         fp_fake_res = os.path.join(out_dir, 'results')
         cmd = []
         #cmd = 'mkdir -p %s' % os.path.dirname(fp_fake_res)
-        cmd.append('ln -s /databases/Stability_test/results %s' % fp_fake_res)
+        cmd.append('cp -r /databases/Stability_test/results %s' % fp_fake_res)
         cmd.append('ln -s /databases/Stability_test/11763 %s' % os.path.join(out_dir, os.path.basename(out_dir)))
         cmd = ' && '.join(cmd)
 

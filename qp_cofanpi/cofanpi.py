@@ -16,10 +16,14 @@ def cofanpi(qclient, job_id, parameters, out_dir):
     L = open('/logs/cofanpi.log', 'a')
     has_rnaseq = 'RNAseq' in parameters.keys()
     cofanpi_modus = 'genome-only'
+    out_name = 'CoFAnPi'
     num_total_steps = 4
     if has_rnaseq:
         num_total_steps += 1
         cofanpi_modus = 'genome-and-transcriptome'
+        out_name += '+RNAseq annotated genome'
+    else:
+        out_name += ' annotated genome'
 
     num_step = 1
     qclient.update_job_step(job_id, "Step %i of %i: Obtain organism_name and locus_tag from sample information and write into config.yaml" % (num_step, num_total_steps))
@@ -155,7 +159,7 @@ def cofanpi(qclient, job_id, parameters, out_dir):
                     lf.write(line)
             lf.write('==== end   file "%s" ====\n\n\n' % os.path.abspath(src_file))
 
-    output_artifacts = [ArtifactInfo('genome', 'CoFAnPi annotated genome', [
+    output_artifacts = [ArtifactInfo(out_name, 'genome', [
         (fp_res_assembly_fna, 'assembly'),
         (fp_annotation, 'annotation'),
         (fp_log, 'log'),
@@ -172,3 +176,15 @@ def cofanpi(qclient, job_id, parameters, out_dir):
     #print('------------ENDE----------------\n', file=L)
     #raise ValueError("Stefan Endet!")
     return True, output_artifacts, ""
+
+
+
+    # ainfo = [ArtifactInfo('deblur final table', 'BIOM',
+    #                       [(final_biom, 'biom'),
+    #                        (final_seqs, 'preprocessed_fasta')]),
+    #         ArtifactInfo('deblur reference hit table', 'BIOM',
+    #                  [(final_biom_hit, 'biom'),
+    #                   (final_seqs_hit, 'preprocessed_fasta'),
+    #                   (fp_phylogeny, 'plain_text')], new_placements)]
+
+    # return True, ainfo, ""

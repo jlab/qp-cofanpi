@@ -17,7 +17,6 @@ def cofanpi(qclient, job_id, parameters, out_dir):
     COL_LOCUS_TAG = 'locus_tag'
     FAKE_SNAKEMAKE = True
 
-    L = open('/logs/cofanpi.log', 'a')
     has_rnaseq = 'RNAseq' in parameters.keys()
     cofanpi_modus = 'genome-only'
     out_name = OUT_NAME_noRNA
@@ -100,8 +99,6 @@ def cofanpi(qclient, job_id, parameters, out_dir):
                 fp_rna_trgt = os.path.join(out_dir, 'rna_seq', os.path.basename(fileobj['filepath']).replace('.fastq.gz', '.fq.gz'))  # as qiita enforces .fastq.gz but cofanpi .fq.gz
                 Path(fp_rna_trgt).symlink_to(fileobj['filepath'])
 
-        print("artifact_rnaseq_info", artifact_rnaseq_info, file=L)
-
     num_step += 1
     qclient.update_job_step(job_id, "Step %i of %i: Executing the CoFAnPi pipeline." % (num_step, num_total_steps))
     # very specific for the cofanpi docker image
@@ -128,7 +125,6 @@ def cofanpi(qclient, job_id, parameters, out_dir):
         cmd.append('ln -s /databases/Stability_test/11763 %s' % os.path.join(out_dir, os.path.basename(out_dir)))
         cmd = ' && '.join(cmd)
 
-    print("cofanpi qiita CMD is: ", cmd, file=L)
     std_out, std_err, return_value = system_call(cmd)
     if return_value != 0:
         error_msg = ("Error running CoFAnPi pipeline:\nStd out: %s\nStd err: %s"
@@ -166,27 +162,5 @@ def cofanpi(qclient, job_id, parameters, out_dir):
         (fp_annotation, 'annotation'),
         (fp_log, 'log'),
     ])]
-    #print("index genome prep", df_prep_genome_metadata.index, file=L)
-    #print("overlap", set(df_prep_genome_metadata.index) & set(df_study_metadata.index), file=L)
-    #print("\n\n\n\n\ndf_sample_metadata", df_sample_metadata.head(), file=sys.stderr)
-    #print("df_prep_genome", df_prep_genome.index, set(df_sample_metadata.index) & set(df_prep_genome.index), "=================================================================", file=sys.stderr)
 
-    #artifact_rnaseq_id = parameters.get('RNAseq', None)
-
-    #ainfo = []
-
-    #print('------------ENDE----------------\n', file=L)
-    #raise ValueError("Stefan Endet!")
     return True, output_artifacts, ""
-
-
-
-    # ainfo = [ArtifactInfo('deblur final table', 'BIOM',
-    #                       [(final_biom, 'biom'),
-    #                        (final_seqs, 'preprocessed_fasta')]),
-    #         ArtifactInfo('deblur reference hit table', 'BIOM',
-    #                  [(final_biom_hit, 'biom'),
-    #                   (final_seqs_hit, 'preprocessed_fasta'),
-    #                   (fp_phylogeny, 'plain_text')], new_placements)]
-
-    # return True, ainfo, ""

@@ -15,7 +15,7 @@ OUT_NAME_noRNA =   'CoFAnPi annotated genome'
 def cofanpi(qclient, job_id, parameters, out_dir):
     COL_ORGANISM_NAME = 'organism_name'
     COL_LOCUS_TAG = 'locus_tag'
-    FAKE_SNAKEMAKE = True
+    FAKE_SNAKEMAKE = False
 
     has_rnaseq = 'RNAseq' in parameters.keys()
     cofanpi_modus = 'genome-only'

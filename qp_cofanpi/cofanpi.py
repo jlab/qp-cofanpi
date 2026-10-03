@@ -125,6 +125,8 @@ def cofanpi(qclient, job_id, parameters, out_dir):
         cmd.append('ln -s /databases/Stability_test/11763 %s' % os.path.join(out_dir, os.path.basename(out_dir)))
         cmd = ' && '.join(cmd)
 
+    with open('/debug.log', 'a') as L:
+        print("cmd=", cmd, os.path.dirname(workdir), num_cpus, cofanpi_modus, file=L)
     std_out, std_err, return_value = system_call(cmd)
     if return_value != 0:
         error_msg = ("Error running CoFAnPi pipeline:\nStd out: %s\nStd err: %s"

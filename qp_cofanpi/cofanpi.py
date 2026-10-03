@@ -116,7 +116,7 @@ def cofanpi(qclient, job_id, parameters, out_dir):
     link_conda.symlink_to('/databases/conda')
 
     if not FAKE_SNAKEMAKE:
-        cmd = 'HOST_UID=%s bash /fun/cofanpi.sh -c %i -i %s' % (os.path.dirname(out_dir), num_cpus, cofanpi_modus)
+        cmd = 'HOST_UID=%s bash /fun/cofanpi.sh -c %i -i %s' % (os.path.basename(out_dir), num_cpus, cofanpi_modus)
     else:
         fp_fake_res = os.path.join(out_dir, 'results')
         cmd = []
